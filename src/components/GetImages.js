@@ -7,9 +7,19 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import SaveIcon from '@material-ui/icons/Save';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+import IconButton from '@material-ui/core/IconButton';
+import BinImage from './BinImage'
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        overflow: 'hidden',
+        backgroundColor: theme.palette.background.paper,
+
     },
     paper: {
         padding: theme.spacing(5),
@@ -19,9 +29,13 @@ const useStyles = makeStyles((theme) => ({
     root1: {
         justifyContent: 'center'
     },
+    icon: {
+        color: 'rgba(255, 255, 255, 0.54)',
+    },
+
 }));
 function GetImages(props) {
-    const [pageNum, setPageNum] = useState(4)
+    const [pageNum, setPageNum] = useState(1)
     const classes = useStyles();
     const getImageQuery = gql`
     query{
@@ -59,6 +73,15 @@ function GetImages(props) {
                     {imageData.map((image) => (
                         <GridListTile key={image.id} cols={1}>
                             <img src={image.url} alt={image.description} />
+                            <GridListTileBar title={image.posterName} subtitle={image.description}
+                                titlePosition="bottom"
+                                actionIcon={
+                                    <IconButton aria-label="Bin it" color="secondary">
+                                        <SaveIcon></SaveIcon>
+                                    </IconButton>
+                                }>
+
+                            </GridListTileBar>
                         </GridListTile>
                     ))}
                 </GridList>

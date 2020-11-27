@@ -1,24 +1,31 @@
 import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
+import React, { useState } from 'react'
 
 
-function handleClick(event) {
-    event.preventDefault();
-    console.info('You clicked a breadcrumb.');
-}
 
-function SimpleBreadcrumbs() {
+
+function SimpleBreadcrumbs(props) {
+
+    const [openTab, setOpenTab] = useState(1)
+
     return (
-        <Breadcrumbs aria-label="breadcrumb">
-            <Link color="inherit" href="/" onClick={handleClick}>
-                My Bin
-            </Link>
-            <Link color="inherit" href="/getting-started/installation/" onClick={handleClick}>
-                Images
-            </Link>
-            <Typography color="textPrimary">My Posts</Typography>
-        </Breadcrumbs>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: "10px", marginBottom: "10px" }}>
+
+            <Breadcrumbs aria-label="breadcrumb">
+                <Link color="inherit" href="/my-bin" >
+                    <Typography color="textPrimary">My Posts</Typography>
+                </Link>
+                <Link color="inherit" href="/" >
+                    <Typography color="textPrimary">Images</Typography>
+                </Link>
+                <Link color="inherit" href="/my-posts" >
+                    <Typography color="textPrimary">My Posts</Typography>
+                </Link>
+            </Breadcrumbs>
+
+        </div>
     );
 }
 
