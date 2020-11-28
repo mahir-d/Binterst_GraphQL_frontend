@@ -1,23 +1,55 @@
 import React from 'react'
-import { gql, useLazyQuery } from '@apollo/client';
+import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress'
 
-export default function BinItButton(props) {
+
+
+export default function BinItButton({ image_obj }) {
+
     const bin_it_query = gql`
-    mutation{
-         updateImage(id: ${props.id}, url: ${props.url}, posterName: ${props.posterName}, description: ${props.description} , 
-            userPosted: ${props.userPosted}, binned: ${props.binned}){
-                id
-                posterName
-                url
-                binned
-            }
+        mutation updateImage($id: ID!
+                $url: String
+                $posterName: String
+                $description: String
+                $userPosted: Boolean
+                $binned: Boolean){
+                    updateImage( id: $id, url: $url, posterName: $posterName, description: $description, userPosted: $userPosted, binned: $binned){
+                         
+                        id
+                        url
+                        posterName
+                        description
+                        userPosted
+                        binned
+
+                    }
+                        
+                    
+             }
+        
+        
+    `;
+    const [binIt] = useMutation(bin_it_query);
+
+    const run_query = () => {
+        binIt({ variables: { id: image_obj.id, url: image_obj.url, posterName: image_obj.posterName, description: image_obj.description, userPosted: image_obj.userPosted, binned: image_obj.binned } });
     }
-`
-    const [loadGreeting, { called, loading, data }] = useLazyQuery(bin_it_query);
-    if (called && loading) return <p>Loading ...</p>
+
+    console.log(binIt)
+    if (image_obj.binned) {
+        <div>
+            <Button color="secondary" onClick={run_query}>Remove from Bin</Button>
+        </div>
+    }
     else {
-        return <Button color="secondary" onClick={() => loadGreeting()}>Add to Bin</Button>
+        return (
+
+            <div>
+                <Button color="secondary" onClick={run_query}>Add to Bin</Button>
+            </div>
+        )
     }
+
 
 }

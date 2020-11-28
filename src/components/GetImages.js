@@ -64,7 +64,7 @@ function GetImages(props) {
 
                 <Grid container spacing={3} className={classes.root1}>
                     {imageData.map((image_obj) => (
-                        <Grid item xs={12}>
+                        <Grid item key={image_obj.id} xs={12}>
                             <Card className={classes.root}>
                                 <CardMedia
                                     className={classes.media}
@@ -82,7 +82,7 @@ function GetImages(props) {
                                 <CardActionArea>
                                     <Grid container className={classes.root1}>
                                         <Grid item>
-                                            {/* <BinItButton id={image_obj.id} url={image_obj.url} posterName={image_obj.posterName} description={image_obj.description} userPosted={image_obj.userPosted} binned={image_obj.binned}></BinItButton> */}
+                                            <BinItButton image_obj={image_obj}></BinItButton>
                                         </Grid>
                                     </Grid>
 
