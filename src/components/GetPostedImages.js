@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, useMutation } from '@apollo/client';
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -7,6 +7,8 @@ import Grid from '@material-ui/core/Grid';
 import { Card, Typography } from '@material-ui/core'
 import { CardActionArea, CardContent, CardMedia } from '@material-ui/core';
 import BinItButton from './BinItButton'
+import DeletePost from './DeletePost'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         marginBottom: 20
@@ -24,9 +26,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-
 function GetPostedImages(props) {
-
     const classes = useStyles();
     const getImageQuery = gql`
     query{
@@ -44,6 +44,7 @@ function GetPostedImages(props) {
 
 
     const { loading, error, data } = useQuery(getImageQuery);
+
 
     if (loading) {
         return (<CircularProgress />)
@@ -82,7 +83,9 @@ function GetPostedImages(props) {
                                 <CardActionArea>
                                     <Grid container className={classes.root1}>
                                         <Grid item>
+                                            <DeletePost image_obj={image_obj}></DeletePost>
                                             <BinItButton image_obj={image_obj}></BinItButton>
+
                                         </Grid>
                                     </Grid>
 

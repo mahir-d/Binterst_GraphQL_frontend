@@ -7,34 +7,52 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import FormControl from '@material-ui/core/FormControl';
+import { gql, useMutation } from '@apollo/client';
 
 function CreateNewPost({ open, handleClose }) {
 
-    const [urlValidation, seturlValidation] = useState(true)
-    const [nameValidation, setnameValidation] = useState(true)
+    const [urlData, setUrl] = useState('')
+    const [nameData, setNameData] = useState('')
+    const [description, setDescription] = useState('')
 
-    const handleUrlChange = (event) => {
+    const new_post_query = gql`
+        mutation uploadImage(
+                $url: String!
+                $description: String
+                $posterName: String
+                ){
+                    uploadImage( url: $url, posterName: $posterName, description: $description){
+                         
+                        id
 
-        let lenS = event.target.value.length
-        if (lenS < 1) {
-            seturlValidation({ urlValidation: true })
-        }
-        else if (event.target.value.length > 0) {
-            seturlValidation({ urlValidation: false })
-        }
-        console.log(urlValidation)
+                    }
+                        
+                    
+             }
+        
+        
+    `;
+    const [createPost] = useMutation(new_post_query);
+
+    const handleDescription = input => e => {
+
+        setDescription({ [input]: e.target.value })
     }
-    const handleNameChange = (event) => {
-        if (event.target.value.length == 0) {
-            setnameValidation({ nameValidation: true })
-        }
-        else {
-            setnameValidation({ nameValidation: false })
-        }
+    const handleUrlChange = input => e => {
+
+        setUrl({ [input]: e.target.value })
+
+    }
+    const handleNameChange = input => e => {
+
+        setNameData({ [input]: e.target.value })
     }
     const handleSubmit = (event) => {
-        event.preventDefault()
-        console.log(event)
+        console.log(urlData)
+        console.log(nameData)
+        console.log(description)
+        createPost({ variables: { url: urlData.urlData, description: description.description, posterName: nameData.nameData } })
+        handleClose()
     }
 
 
@@ -54,27 +72,28 @@ function CreateNewPost({ open, handleClose }) {
                                 id="Description"
                                 label="Image Description"
                                 type="text"
+                                onChange={handleDescription('description')}
                                 fullWidth
                             />
                         </FormControl>
-                        <FormControl>
+                        <FormControl required validate>
                             <TextField
                                 margin="dense"
                                 id="url"
                                 label="Image url"
                                 type="url"
+                                onChange={handleUrlChange('urlData')}
                                 fullWidth
-                                error={urlValidation}
-                                onChange={handleUrlChange}
+
                             />
                         </FormControl>
-                        <FormControl>
+                        <FormControl required={true} >
                             <TextField
                                 margin="dense"
                                 id="name"
                                 label="Author Name"
                                 type="text"
-                                error={false}
+                                onChange={handleNameChange('nameData')}
                                 fullWidth
                             />
                         </FormControl>
@@ -83,10 +102,12 @@ function CreateNewPost({ open, handleClose }) {
                                 Cancel
                         </Button>
                             <Button type="submit" onClick={handleSubmit} color="primary">
-                                Subscribe
+                                Create
                         </Button>
                         </DialogActions>
                     </form>
+
+
                 </DialogContent>
 
 
