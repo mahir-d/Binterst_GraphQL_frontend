@@ -1,30 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { useQuery, gql } from '@apollo/client';
-// import RenderImageList from './RenderImageList'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { makeStyles } from '@material-ui/core/styles';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import SaveIcon from '@material-ui/icons/Save';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import BinImage from './BinImage'
+import { Card, Typography } from '@material-ui/core'
+import { CardActionArea, CardContent, CardMedia } from '@material-ui/core';
+import BinItButton from './BinItButton'
 const useStyles = makeStyles((theme) => ({
     root: {
-        flexGrow: 1,
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'space-around',
-        overflow: 'hidden',
-        backgroundColor: theme.palette.background.paper,
-
+        marginBottom: 20
     },
-    paper: {
-        padding: theme.spacing(5),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
+    media: {
+        height: 500,
     },
     root1: {
         justifyContent: 'center'
@@ -34,6 +22,10 @@ const useStyles = makeStyles((theme) => ({
     },
 
 }));
+
+
+
+
 function GetImages(props) {
     const [pageNum, setPageNum] = useState(1)
     const classes = useStyles();
@@ -69,25 +61,43 @@ function GetImages(props) {
         let imageData = data.unSplashImages
         return (
             < div >
-                <GridList cellHeight={500} className={classes.gridList} cols={1}>
-                    {imageData.map((image) => (
-                        <GridListTile key={image.id} cols={1}>
-                            <img src={image.url} alt={image.description} />
-                            <GridListTileBar title={image.posterName} subtitle={image.description}
-                                titlePosition="bottom"
-                                actionIcon={
-                                    <IconButton aria-label="Bin it" color="secondary">
-                                        <SaveIcon></SaveIcon>
-                                    </IconButton>
-                                }>
 
-                            </GridListTileBar>
-                        </GridListTile>
+                <Grid container spacing={3} className={classes.root1}>
+                    {imageData.map((image_obj) => (
+                        <Grid item xs={12}>
+                            <Card className={classes.root}>
+                                <CardMedia
+                                    className={classes.media}
+                                    image={image_obj.url}
+                                    title={image_obj.posterName}>
+                                </CardMedia>
+                                <CardContent>
+                                    <Typography gutterBottom variant="h5" align='center' component="h2">
+                                        {image_obj.posterName}
+                                    </Typography>
+                                    <Typography variant="body1" align='left' color="textPrimary" component="p">
+                                        {image_obj.description}
+                                    </Typography>
+                                </CardContent>
+                                <CardActionArea>
+                                    <Grid container className={classes.root1}>
+                                        <Grid item>
+                                            {/* <BinItButton id={image_obj.id} url={image_obj.url} posterName={image_obj.posterName} description={image_obj.description} userPosted={image_obj.userPosted} binned={image_obj.binned}></BinItButton> */}
+                                        </Grid>
+                                    </Grid>
+
+                                </CardActionArea>
+                            </Card>
+                        </Grid>
+
                     ))}
-                </GridList>
+                </Grid>
+
                 <br></br>
-                <Grid container xs={12} className={classes.root1}>
-                    <Button color="default" onClick={() => setPageNum(pageNum + 1)} >Load More</Button>
+                <Grid container className={classes.root1}>
+                    <Grid item xs={12}>
+                        <Button color="default" onClick={() => setPageNum(pageNum + 1)} >Load More</Button>
+                    </Grid>
                 </Grid>
                 <br></br>
             </div >)
