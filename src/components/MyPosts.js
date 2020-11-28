@@ -4,8 +4,22 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import GetPostedImages from './GetPostedImages'
+import CreateNewPost from './CreateNewPost'
+import Button from '@material-ui/core/Button';
 
 function MyPosts() {
+    // Functions to toggle dialog 
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
     return (
         <div>
             <Container>
@@ -22,6 +36,8 @@ function MyPosts() {
                     </Breadcrumbs>
 
                 </div>
+                <Button onClick={handleClickOpen}>Add New Post</Button>
+                <CreateNewPost open={open} handleClose={handleClose} ></CreateNewPost>
                 <GetPostedImages></GetPostedImages>
             </Container>
         </div>
