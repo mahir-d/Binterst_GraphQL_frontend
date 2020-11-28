@@ -26,6 +26,17 @@ const useStyles = makeStyles((theme) => ({
 
 
 function GetBinnedImages(props) {
+    const [updateF, setUpdateF] = useState(false)
+    const updateCalled = () => {
+        setUpdateF({ updateF: !updateF })
+        console.log('updateCalled')
+    }
+    useEffect(() => {
+
+        refetch()
+
+    }, [updateF])
+
 
     const classes = useStyles();
     const getImageQuery = gql`
@@ -43,7 +54,7 @@ function GetBinnedImages(props) {
 
 
 
-    const { loading, error, data } = useQuery(getImageQuery);
+    const { loading, error, data, refetch } = useQuery(getImageQuery);
 
     if (loading) {
         return (<CircularProgress />)
@@ -82,7 +93,7 @@ function GetBinnedImages(props) {
                                 <CardActionArea>
                                     <Grid container className={classes.root1}>
                                         <Grid item>
-                                            <BinItButton image_obj={image_obj}></BinItButton>
+                                            <BinItButton updateCalled={updateCalled} image_obj={image_obj}></BinItButton>
                                         </Grid>
                                     </Grid>
 

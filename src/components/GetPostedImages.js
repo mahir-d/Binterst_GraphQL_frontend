@@ -28,6 +28,19 @@ const useStyles = makeStyles((theme) => ({
 
 function GetPostedImages(props) {
     const classes = useStyles();
+    const [deleteF, setDeleteF] = useState(false)
+
+    const deleteCalled = () => {
+        setDeleteF({ deleteF: !deleteF })
+        console.log('deleteCalled')
+    }
+
+    useEffect(() => {
+
+        refetch()
+
+    }, [deleteF])
+
     const getImageQuery = gql`
     query{
        userPostedImages{
@@ -43,7 +56,7 @@ function GetPostedImages(props) {
 
 
 
-    const { loading, error, data } = useQuery(getImageQuery);
+    const { loading, error, data, refetch } = useQuery(getImageQuery);
 
 
     if (loading) {
@@ -83,7 +96,7 @@ function GetPostedImages(props) {
                                 <CardActionArea>
                                     <Grid container className={classes.root1}>
                                         <Grid item>
-                                            <DeletePost image_obj={image_obj}></DeletePost>
+                                            <DeletePost deleteCalled={deleteCalled} image_obj={image_obj}></DeletePost>
                                             <BinItButton image_obj={image_obj}></BinItButton>
 
                                         </Grid>

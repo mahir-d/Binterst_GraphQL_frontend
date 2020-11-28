@@ -5,7 +5,7 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 
 
 
-export default function BinItButton({ image_obj }) {
+export default function BinItButton({ image_obj, updateCalled }) {
 
     const bin_it_query = gql`
         mutation updateImage($id: ID!
@@ -34,6 +34,8 @@ export default function BinItButton({ image_obj }) {
 
     const run_query = () => {
         binIt({ variables: { id: image_obj.id, url: image_obj.url, posterName: image_obj.posterName, description: image_obj.description, userPosted: image_obj.userPosted, binned: image_obj.binned } });
+
+        updateCalled()
     }
 
 

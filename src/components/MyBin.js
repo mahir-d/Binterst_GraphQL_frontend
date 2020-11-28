@@ -5,6 +5,7 @@ import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
 import GetBinnedImages from './GetBinnedImages'
 function MyBin() {
+
     return (
         <div>
             <Container>
