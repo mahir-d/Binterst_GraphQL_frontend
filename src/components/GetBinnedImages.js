@@ -25,13 +25,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 
+function GetBinnedImages(props) {
 
-function GetImages(props) {
-    const [pageNum, setPageNum] = useState(1)
     const classes = useStyles();
     const getImageQuery = gql`
     query{
-        unSplashImages(pageNum: ${pageNum}){
+        binnedImages{
             id
             url
             posterName
@@ -41,7 +40,7 @@ function GetImages(props) {
         }
     }
 `;
-    useEffect(() => { }, [pageNum])
+
 
 
     const { loading, error, data } = useQuery(getImageQuery);
@@ -58,7 +57,8 @@ function GetImages(props) {
     }
 
     else if (data) {
-        let imageData = data.unSplashImages
+        let imageData = data.binnedImages
+        console.log(data)
         return (
             < div >
 
@@ -92,16 +92,6 @@ function GetImages(props) {
 
                     ))}
                 </Grid>
-
-                <br></br>
-                <div>
-                    <Grid container className={classes.root1}>
-                        <Grid item>
-                            <Button color="default" onClick={() => setPageNum(pageNum + 1)} >Load More Images</Button>
-                        </Grid>
-                    </Grid>
-                </div>
-                <br></br>
             </div >)
     }
     else {
@@ -109,4 +99,4 @@ function GetImages(props) {
     }
 }
 
-export default GetImages;
+export default GetBinnedImages;

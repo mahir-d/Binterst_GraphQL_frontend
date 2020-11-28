@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
-
+import GetPostedImages from './GetPostedImages'
 
 function MyPosts() {
     return (
@@ -22,7 +22,7 @@ function MyPosts() {
                     </Breadcrumbs>
 
                 </div>
-                {/* {GetImages()} */}
+                <GetPostedImages></GetPostedImages>
             </Container>
         </div>
     )

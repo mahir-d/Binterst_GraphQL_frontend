@@ -36,13 +36,9 @@ export default function BinItButton({ image_obj }) {
         binIt({ variables: { id: image_obj.id, url: image_obj.url, posterName: image_obj.posterName, description: image_obj.description, userPosted: image_obj.userPosted, binned: image_obj.binned } });
     }
 
-    console.log(binIt)
-    if (image_obj.binned) {
-        <div>
-            <Button color="secondary" onClick={run_query}>Remove from Bin</Button>
-        </div>
-    }
-    else {
+    console.log(image_obj)
+
+    if (image_obj.binned == false) {
         return (
 
             <div>
@@ -50,6 +46,18 @@ export default function BinItButton({ image_obj }) {
             </div>
         )
     }
+    else {
+        return (
+
+            <div>
+                <Button color="secondary" onClick={run_query}>Remove from Bin</Button>
+            </div>
+        )
+    }
+
+
+
+
 
 
 }
