@@ -34,8 +34,7 @@ export default function BinItButton({ image_obj, updateCalled }) {
 
     const run_query = () => {
         binIt({ variables: { id: image_obj.id, url: image_obj.url, posterName: image_obj.posterName, description: image_obj.description, userPosted: image_obj.userPosted, binned: image_obj.binned } });
-
-        updateCalled()
+        if (updateCalled !== undefined) { updateCalled() }
     }
 
 
