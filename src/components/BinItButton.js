@@ -13,8 +13,9 @@ export default function BinItButton({ image_obj, updateCalled }) {
                 $posterName: String
                 $description: String
                 $userPosted: Boolean
-                $binned: Boolean){
-                    updateImage( id: $id, url: $url, posterName: $posterName, description: $description, userPosted: $userPosted, binned: $binned){
+                $binned: Boolean
+                $numBinned: Int){
+                    updateImage( id: $id, url: $url, posterName: $posterName, description: $description, userPosted: $userPosted, binned: $binned, numBinned: $numBinned ){
                          
                         id
                         url
@@ -22,6 +23,7 @@ export default function BinItButton({ image_obj, updateCalled }) {
                         description
                         userPosted
                         binned
+                        numBinned
 
                     }
                         
@@ -33,7 +35,7 @@ export default function BinItButton({ image_obj, updateCalled }) {
     const [binIt] = useMutation(bin_it_query);
 
     const run_query = () => {
-        binIt({ variables: { id: image_obj.id, url: image_obj.url, posterName: image_obj.posterName, description: image_obj.description, userPosted: image_obj.userPosted, binned: image_obj.binned } });
+        binIt({ variables: { id: image_obj.id, url: image_obj.url, posterName: image_obj.posterName, description: image_obj.description, userPosted: image_obj.userPosted, binned: image_obj.binned, numBinned: image_obj.numBinned } });
         if (updateCalled !== undefined) { updateCalled() }
     }
 

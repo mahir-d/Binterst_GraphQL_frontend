@@ -38,6 +38,7 @@ function GetImages(props) {
             description
             userPosted
             binned
+            numBinned
         }
     }
 `;

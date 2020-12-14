@@ -48,6 +48,7 @@ function GetBinnedImages(props) {
             description
             userPosted
             binned
+            numBinned
         }
     }
 `;
