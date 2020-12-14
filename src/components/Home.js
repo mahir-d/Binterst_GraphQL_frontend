@@ -17,6 +17,9 @@ function Home(props) {
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: "10px", marginBottom: "10px" }}>
 
                 <Breadcrumbs aria-label="breadcrumb">
+                    <Link color="inherit" href="/popularity">Popularity
+                        </Link>
+
                     <Link color="inherit" href="/my-bin" >
                         My Bin
                     </Link>

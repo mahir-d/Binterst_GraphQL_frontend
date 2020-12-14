@@ -3,6 +3,7 @@ import './App.css';
 import Home from './components/Home'
 import MyPosts from './components/MyPosts'
 import MyBin from './components/MyBin'
+import Popularity from './components/Populartiy';
 import { ApolloClient, InMemoryCache } from '@apollo/client';
 import { ApolloProvider } from '@apollo/client';
 import NavBar from './components/NavBar'
@@ -33,6 +34,9 @@ class App extends Component {
                     <Switch>
                         <Route exact path="/">
                             <Home />
+                        </Route>
+                        <Route exact path="/popularity">
+                            <Popularity></Popularity>
                         </Route>
                         <Route path="/my-bin">
                             <MyBin></MyBin>

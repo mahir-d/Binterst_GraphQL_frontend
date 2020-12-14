@@ -3,8 +3,8 @@ import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Container from '@material-ui/core/Container';
-import GetBinnedImages from './GetBinnedImages'
-function MyBin() {
+import GetPopularImages from './GetPopularImages';
+function Popularity() {
 
     return (
         <div>
@@ -12,11 +12,12 @@ function MyBin() {
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: "10px", marginBottom: "10px" }}>
 
                     <Breadcrumbs aria-label="breadcrumb">
-                        <Link color="inherit" href="/popularity">Popularity
+
+                        <Typography color="primary">Popularity</Typography>
+
+                        <Link color="inherit" href="/my-bin" >
+                            My Bin
                         </Link>
-
-                        <Typography color="primary">My Bin</Typography>
-
                         <Link color="inherit" href="/" >
                             Images
                         </Link>
@@ -27,7 +28,7 @@ function MyBin() {
 
                 </div>
 
-                <GetBinnedImages></GetBinnedImages>
+                <GetPopularImages></GetPopularImages>
             </Container>
 
         </div >
@@ -35,4 +36,4 @@ function MyBin() {
     )
 }
 
-export default MyBin
+export default Popularity
