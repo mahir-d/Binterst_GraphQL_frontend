@@ -50,6 +50,7 @@ function GetPostedImages(props) {
             description
             userPosted
             binned
+            numBinned
         }
     }
 `;
